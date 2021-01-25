@@ -1,28 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Nav @open="openModal" />
+    <LandingPage @open="openModal" />
+    <modal :show="show" @close="closeModal" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LandingPage from "./pages/LandingPage";
+import Nav from "./components/Nav";
+// import Footer from "./components/Footer";
+import Modal from "./components/Modal";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    LandingPage,
+    Nav,
+    // Footer,
+    Modal,
+  },
+  data() {
+    return {
+      show: false,
+    };
+  },
+  methods: {
+    closeModal() {
+      this.show = false;
+      document.querySelector("body").classList.remove("overflow-hidden");
+    },
+    openModal() {
+      this.show = true;
+      document.querySelector("body").classList.add("overflow-hidden");
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Inter", sans-serif;
 }
 </style>
