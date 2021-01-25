@@ -1,5 +1,5 @@
 <template>
-  <div class="parent">
+  <div :class="{ change_color: scrollPosition > innerHeight }" class="parent">
     <mq-layout class="mq" mq="tablet+">
       <nav class="navigation">
         <img src="../assets/nike.png" />
@@ -21,6 +21,10 @@
 
 <script>
 export default {
+  props: {
+    scrollPosition: Number,
+    innerHeight: Number
+  },
   methods: {
     openModal() {
       this.$emit("open");
@@ -30,6 +34,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.change_color {
+  background-color: black;
+}
 .parent {
   position: fixed;
   width: 100%;

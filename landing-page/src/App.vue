@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Nav @open="openModal" />
+    <Nav :scroll-position="scrollPosition" :inner-height="innerHeight" @open="openModal" />
     <LandingPage @open="openModal" />
     <modal :show="show" @close="closeModal" />
   </div>
@@ -9,7 +9,6 @@
 <script>
 import LandingPage from "./pages/LandingPage";
 import Nav from "./components/Nav";
-// import Footer from "./components/Footer";
 import Modal from "./components/Modal";
 
 export default {
@@ -17,12 +16,13 @@ export default {
   components: {
     LandingPage,
     Nav,
-    // Footer,
     Modal,
   },
   data() {
     return {
       show: false,
+      scrollPosition: null,
+      innerHeight: null,
     };
   },
   methods: {
@@ -34,6 +34,14 @@ export default {
       this.show = true;
       document.querySelector("body").classList.add("overflow-hidden");
     },
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
+      this.innerHeight = window.innerHeight;
+      console.info(this)
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.updateScroll);
   },
 };
 </script>
